@@ -19,7 +19,11 @@ app.use(bodyParser.json());
 
 mongoose.connect(url, {})
     .then(() => console.log('MongoDB Atlas connected'))
-    .catch(err => console.error('MongoDB connection error:', err));
+    .catch(err => {
+      console.error('MongoDB connection error:', err);
+      process.exit(1); // Exit the application if unable to connect to MongoDB
+    });
+
 
 // Use the contact routes
 app.use('/api/contacts', contactRoutes); // This line registers the routes
@@ -31,6 +35,6 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on ${PORT}`);
 });
 
